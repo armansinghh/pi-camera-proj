@@ -17,6 +17,8 @@ lapse:
 
 [Enclosure design session 2](https://lapse.hackclub.com/timelapse/gx-nGCOcEONJ)
 
+![Enclosure design](./assets/enclosure_Aug24.png)
+
 **Total time spent: 2h**
 
 
@@ -47,6 +49,8 @@ lapse:
 # September 4: readme pass + found a pin conflict
 
 spent most of this session rewriting the readme properly. while writing out the i noticed gpio18 pin conflict: e-paper HAT wants it for PWR (fixed since it's a direct stack, can't reroute in software), and the DAC also needs it for i2s clock (BCK). since i2s pins are fixed in hardware, this one isn't a simple fix. plan rn is to slightly bend that pin on the HAT and route it elsewhere once i've actually got the hardware.
+
+![warning](./assets/warning.png)
 
 
 **Total time spent: 2h 14m**
