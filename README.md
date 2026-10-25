@@ -6,7 +6,7 @@ A camera that remembers only one photo (on screen at least), and works as an mp3
 ## What is it
 wanted a digicam for a while, but the old ones are unreliable (& expensive ofc) and new cheap ones are just junk. so i decided to build one myself. i also wanted an mp3 player, totally different itch. since i was already building custom hardware for the camera, figured why not squeeze that in too (big brain)
 
-**ok here's what it actually does:** <br>
+**ok here's what it would actually do:** <br>
 there's no gallery, no scrolling, the e-paper just shows your last shot and it stays there forever until next shot. every pic still gets saved properly though, and it wifi backs up to laptop/phone in the background the second photo is taken, nothing ever actually gets lost even though the screen only shows the one pic (you can change which pic shows from the phone/laptop dashboard too).
 
 
@@ -44,18 +44,49 @@ there's no gallery, no scrolling, the e-paper just shows your last shot and it s
 ## CAD Model
 **Complete CAD model is available on [ONSHAPE](https://cad.onshape.com/documents/ab0129b0ffcb553a41fd978a/w/1af2f7c9bc0d2e8a4e4feb4b/e/cccda6b71561c05696152eb3?renderMode=0&uiState=6a9196cf4e41288969f92849)**
 
+## Firmware
+basic firmware is in the [`firmware/`](./firmware) folder. shutter takes a photo, dithers it to 6 colors and shows it on the e-paper. the other 3 buttons play music.
+
+```
+firmware/
+├── audio.py    # mp3 playback (pcm5102 -> tda1308 -> jack)
+├── camera.py   # takes a full res photo with cam module 3
+├── display.py  # shows an image on the e-paper
+├── dither.py   # crops to 600x400 + floyd-steinberg dithering
+└── main.py     # reads the buttons, runs everything
+```
+
+| button | gpio | press | hold |
+| --- | --- | --- | --- |
+| shutter | 22 | take photo | - |
+| play/pause | 23 | play / pause | audio-only mode (shutter off) |
+| next | 26 | next song | volume up |
+| prev | 27 | previous song | volume down |
+
+**setup**
+1. enable I2S, SPI and camera in `raspi-config`
+2. `sudo apt install python3-pygame python3-gpiozero python3-pil python3-picamera2`
+3. copy the `waveshare_epd` folder from waveshare's demo (4inch_e-Paper_E.zip) into `firmware/lib/`
+4. put mp3s in `~/music`, photos get saved to `~/photos`
+5. `python main.py`
+
+u can try the dithering on your pc without any hardware: `python dither.py photo.jpg preview.png`
+
+> [!NOTE]
+> e-paper only refreshes once every 3 min (waveshare recommends it), so if u shoot faster the photo is still saved and the screen catches up later. wifi backup is not in the firmware yet. nothing is tested on real hardware yet except the audio logic (dummy driver)
+
 ## Status
-schematic and enclosure done, did not start building yet
+schematic, enclosure and basic firmware done. pcb layout + fab files will come after the parts arrive, nothing built or tested on hardware yet
 
 ## QnA
 
 ### why pi zero 2 w and not esp32?
-this is the one part i'm not swapping for something cheaper, and it's not because the pi's just convenient, but the pi actually earns its spot because this thing needs to do a bunch of stuff at the same time that a microcontroller straight up can't
+this is the one part i'm not swapping for something cheaper. the pi can do a lot of things at the same time and an esp32 can't really keep up
 
-1. **camera res**: cam module 3 does 13MP, best an esp32 can pair with is like 5MP.
-2. **ram for the e-paper buffer**: the spectra 6 display needs a chunky memory buffer just to process one image before it even renders. an esp32 doesn't have room for that, especially with music also playing.
-3. **actual multitasking**: taking a high res photo, dithering + rendering it to e-paper, pushing it out over wifi, decoding mp3s, and checking 4 buttons, all at once. that's real OS scheduling, a microcontroller just chokes once audio and image stuff overlap.
-4. **networking + storage**: wifi backup plus a whole photo + music library on one sd card is nothing on linux. on a microcontroller i'd be writing wifi stack and flash/FAT handling from scratch for a worse result.
+1. **camera**: cam module 3 is 13MP, the best camera i found for an esp32 is around 5MP
+2. **ram**: the spectra 6 display needs a big buffer just to process one image before showing it. an esp32 doesn't have that much ram, and music is also playing at the same time
+3. **doing many things at once**: taking a photo, dithering it for the e-paper, sending it over wifi, playing mp3s and reading 4 buttons all happen together. on an esp32 this would probably lag or crash
+4. **wifi + storage**: wifi backup and a full photo + music library on one sd card is easy on linux. on an esp32 i would have to write most of that myself and the result would be worse
 
 ### why added TDA1308 Amplifier?
 PCM5102A outputs line level audio, not enough to drive headphones cleanly. Without the extra amp stage, there would be weak volume and/or audio quality issues.
