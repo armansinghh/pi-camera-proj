@@ -24,12 +24,17 @@ def _seconds_since_last_refresh():
         with open(STAMP) as f:
             return time.time() - float(f.read())
     except (OSError, ValueError):
-        return MIN_GAP 
+        return MIN_GAP
+
+
+def ready():
+    # true if enough time has passed since the last refresh
+    return _seconds_since_last_refresh() >= MIN_GAP
 
 
 def show(img, force=False):
-    """dither + display a PIL image. returns False if it's too soon since the last refresh."""
-    if not force and _seconds_since_last_refresh() < MIN_GAP:
+    # dither + display a PIL image. returns False if it's too soon since the last refresh
+    if not force and not ready():
         return False
 
     img = prepare(img)
