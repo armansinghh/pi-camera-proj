@@ -1,7 +1,7 @@
 # e-paper camera
 A camera that remembers only one photo (on screen at least), and works as an mp3 player too (cuz why not).
 
-![Enclosure Model](./assets/hero-img.png)
+![Enclosure Model](./assets/hero-img2.png)
 
 ## What is it
 wanted a digicam for a while, but the old ones are unreliable (& expensive ofc) and new cheap ones are just junk. so i decided to build one myself. i also wanted an mp3 player, totally different itch. since i was already building custom hardware for the camera, figured why not squeeze that in too (big brain)
@@ -39,7 +39,7 @@ there's no gallery, no scrolling, the e-paper just shows your last shot and it s
 > pin 12 conflict: GPIO18/BCM18 is reserved for the PCM5102A's I2S clock (BCK), so don't stack the e-paper HAT directly on that pin, current plan is to slightly bend it to route around the conflict, but that's unconfirmed until i've got the actual hardware.
 
 ## Enclosure
-![Enclosure Model](./assets/enclosure.png)
+![Enclosure Model](./assets/final-enclosure.png)
 
 ## CAD Model
 **Complete CAD model is available on [ONSHAPE](https://cad.onshape.com/documents/ab0129b0ffcb553a41fd978a/w/1af2f7c9bc0d2e8a4e4feb4b/e/cccda6b71561c05696152eb3?renderMode=0&uiState=6a9196cf4e41288969f92849)**
