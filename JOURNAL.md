@@ -54,3 +54,13 @@ spent most of this session rewriting the readme properly. while writing out the 
 
 
 **Total time spent: 2h 14m**
+
+
+# November 4: Redesigned the enclosure
+got suggested to make rigid ways to mount electronics into the enclosure, spent all the time doing that. now it got proper mounts for e-paper, rasp pi, charging module, step up module, push buttons, headphone jack, cell holder and amp.
+well theres still not any mount for dac but after wiring, i believe it gonna stay intact where it is placed.
+
+![final-enclosure](./assets/final-enclosure.png)
+
+
+**Total time spent: 4.6h**
