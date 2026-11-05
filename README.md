@@ -27,7 +27,10 @@ there's no gallery, no scrolling, the e-paper just shows your last shot and it s
 | MicroSD Card (32GB) | storage for both music library and photos |
 | Buttons x4 (Shutter & Music Controls) | 1 shutter button + 3 music control buttons |
 | Hookup Wire & Jumper Cables | wiring between modules (no custom PCB. please see note below) |
-| M3 Screws | for the enclosure |
+| M3 Screws + Heatset 6mm (x4) | for the enclosure |
+| M2.5 Screws + Heatset 4mm (X4) | for mounting pi |
+| M2 Screws + Heatset 3mm (x6) | for mounting camera module and MT3608 |
+
 
 ## Wiring
 > [!NOTE]
