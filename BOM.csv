@@ -11,6 +11,8 @@ PCM5102A I2S DAC Module,Audio DAC for headphone output,1,2.6,2.6,https://robu.in
 TDA1308 Module,Amp to imrove audio quality,1,1.34,1.34,https://robu.in/product/tda1308-operational-amplifier-front-stage-amplifier-board/
 MicroSD Card (32GB),Storage,1,16.76,16.76,https://www.amazon.in/SanDisk-Ultra-microSD-UHS-I-120MB/dp/B08L5HMJVW?th=1
 Buttons,Shutter + song controls,5,0.5,2.5,Local Shop
-M3 Screws,Enclosure fastening,4,0.4,1.6,Local Shop
+M3 Screws + Heatset 6mm,Enclosure fastening (front panel),4,0.4,1.6,Local Shop
+M2.5 Screws + Heatset 4mm,Mounting the Pi Zero 2 W,4,0.35,1.4,Local Shop
+M2 Screws + Heatset 3mm,Mounting the camera module and MT3608,6,0.3,1.8,Local Shop
 ,,,,,
-Total Price (USD):,,,,148.38,
+Total Price (USD):,,,,151.58,
